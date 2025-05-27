@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/27 14:38:14 by khiidenh          #+#    #+#             */
+/*   Updated: 2025/05/27 14:38:16 by khiidenh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 int	ft_atoi(const char *nptr)
@@ -35,4 +47,14 @@ long int get_time(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+void	print_message(t_table *table, char *message, int identifier)
+{
+	pthread_mutex_lock(&table->print_lock);
+	if (identifier == -1)
+		printf("%s", message);
+	else
+		printf(message, get_time(), identifier);
+	pthread_mutex_unlock(&table->print_lock);
 }
