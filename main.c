@@ -60,12 +60,12 @@ void	*watcher_routine(void *arg)
 {
 	t_table *table = (t_table *)arg;
 	int i;
-	int meals_eaten;
+	int all_ate;
 
-	meals_eaten = -1;
-	i = 0;
 	while (true)
 	{
+		i = 0;
+		all_ate = 1;
 		while (i < table->num_philos)
 		{
 			if (get_time() - table->philos[i].last_meal_time > table->time_to_die)
@@ -74,22 +74,18 @@ void	*watcher_routine(void *arg)
 				print_message(table, DIE, table->philos[i].id);
 				exit(1);
 			}
-			if (table->must_eat_count != -1)
-			{
-			if (table->must_eat_count <= table->philos[i].times_ate)
-				meals_eaten = 1;
-			else
-				meals_eaten = -1;
-			}
+			pthread_mutex_lock(&table->meal_check_lock)
+			if (table->must_eat_count != -1 && table->philos[i].times_ate < table->must_eat_count)
+				all_ate = 0;
+			pthread_mutex_unlock(&table->meal_check_lock)
 			i++;
 		}
-		if (table->must_eat_count != -1 && meals_eaten == 1)
+		if (table->must_eat_count != -1 && all_ate == 1)
 		{
 			table->finished = 1;
 			print_message(table, FULL, -1);
 			exit(1);
 		}
-		i = 0;
 	}
 }
 
