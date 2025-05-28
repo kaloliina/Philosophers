@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:10 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/05/27 14:38:20 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:47:14 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,36 @@
 #define THINK "%d %d is thinking\n"
 #define DIE "%d %d died\n"
 #define FULL "All philosophers have eaten their fill!\n"
+#define INPUT_FORMAT "Expected format: <number_of_philosophers> \
+<time_to_die> <time_to_eat> <time_to_sleep> \
+[number_of_times_each_philosopher_must_eat]\n"
+#define DIGIT_CHECK "Input should contain only of digits.\n"
+
+enum e_fail_stages
+{
+	MALLOC,
+	PRINT_LOCK,
+	MEAL_LOCK,
+	FINISHED_LOCK,
+	FORK_LOCK,
+	SUCCESS,
+};
 
 typedef struct s_table {
 	int				num_philos;
 	long int		time_to_die;
 	long int		time_to_eat;
 	long int		time_to_sleep;
+	long int		time_to_think;
 	int				must_eat_count;
 	long int		start_time;
+	int				finished;
+	struct s_philo	*philos;
 	pthread_t		watcher;
-	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	meal_check_lock;
-	struct s_philo	*philos;
-	int				finished;
+	pthread_mutex_t	finished_lock;
+	pthread_mutex_t	*forks;
 }	t_table;
 
 typedef struct s_philo {
@@ -59,7 +75,9 @@ void		initialize(int argc, char *argv[], t_table *table);
 
 //Utils
 int			ft_atoi(const char *nptr);
+bool		check_is_digit(char *str);
 long int	get_time(void);
 void		print_message(t_table *table, char *message, int identifier);
+void	clean_up(t_table *table, enum e_fail_stages fail_stage, int fork_amount);
 
 #endif

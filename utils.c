@@ -6,12 +6,13 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:14 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/05/27 14:38:16 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:27:03 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+//check this one
 int	ft_atoi(const char *nptr)
 {
 	int		i;
@@ -57,4 +58,20 @@ void	print_message(t_table *table, char *message, int identifier)
 	else
 		printf(message, get_time(), identifier);
 	pthread_mutex_unlock(&table->print_lock);
+}
+
+bool	check_is_digit(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '\0')
+		return (false);
+	while (str[i] != '\0')
+	{
+		if (!(str[i] >= 48 && str[i] <= 57))
+			return (false);
+		i++;
+	}
+	return (true);
 }
