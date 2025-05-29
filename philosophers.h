@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:10 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/05/28 17:47:14 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:15:50 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@
 
 enum e_fail_stages
 {
-	MALLOC,
-	PRINT_LOCK,
-	MEAL_LOCK,
-	FINISHED_LOCK,
-	FORK_LOCK,
 	SUCCESS,
+	MALLOC,
+	MUTEX,
+	THREAD,
 };
 
 typedef struct s_table {
@@ -70,14 +68,24 @@ typedef struct s_philo {
 	t_table			*table;
 }	t_philo;
 
-//Initialization
-void		initialize(int argc, char *argv[], t_table *table);
+typedef struct s_clean_up {
+	bool			early_failure;
+	enum e_fail_stages cause_of_failure;
+	bool			destroy_print;
+	bool			destroy_meal;
+	bool			destroy_finished;
+	bool			destroy_forks;
+	int				fork_amount;
+}	t_clean_up;
 
+//Initialization
+t_clean_up	initialize(int argc, char *argv[], t_table *table);
+bool	is_valid_input(int argc, char *argv[]);
 //Utils
 int			ft_atoi(const char *nptr);
 bool		check_is_digit(char *str);
 long int	get_time(void);
 void		print_message(t_table *table, char *message, int identifier);
-void	clean_up(t_table *table, enum e_fail_stages fail_stage, int fork_amount);
+void	clean_ups(t_table *table, t_clean_up clean_up);
 
 #endif
