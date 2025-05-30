@@ -56,7 +56,7 @@ void	print_message(t_table *table, char *message, int identifier)
 	if (identifier == -1)
 		printf("%s", message);
 	else
-		printf(message, get_time(), identifier);
+		printf(message, get_time() - table->start_time, identifier);
 	pthread_mutex_unlock(&table->print_lock);
 }
 

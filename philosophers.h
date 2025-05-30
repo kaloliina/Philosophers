@@ -22,6 +22,7 @@
 #define MEM_FAIL "Failed to allocate memory.\n"
 #define THREAD_FAIL "Failed to create a thread.\n"
 #define MUTEX_FAIL "Failed to create a mutex.\n"
+#define NUM_OF_PHILOS "There must be at least one philosopher sitting at the table\n"
 #define FORK "%d %d has taken a fork\n"
 #define EAT "%d %d is eating\n"
 #define SLEEP "%d %d is sleeping\n"
@@ -31,7 +32,7 @@
 #define INPUT_FORMAT "Expected format: <number_of_philosophers> \
 <time_to_die> <time_to_eat> <time_to_sleep> \
 [number_of_times_each_philosopher_must_eat]\n"
-#define DIGIT_CHECK "Input should contain only of digits.\n"
+#define DIGIT_CHECK "Input should contain only of digits of positive value.\n"
 
 enum e_fail_stages
 {
@@ -78,14 +79,23 @@ typedef struct s_clean_up {
 	int				fork_amount;
 }	t_clean_up;
 
+//Validation
+bool	is_valid_input(int argc, char *argv[]);
+
 //Initialization
 t_clean_up	initialize(int argc, char *argv[], t_table *table);
-bool	is_valid_input(int argc, char *argv[]);
+
+//Routines
+void	*watcher_routine(void *arg);
+void	*philosopher_routine(void *arg);
+
 //Utils
 int			ft_atoi(const char *nptr);
 bool		check_is_digit(char *str);
 long int	get_time(void);
 void		print_message(t_table *table, char *message, int identifier);
+
+//Clean up
 void	clean_ups(t_table *table, t_clean_up clean_up);
 
 #endif

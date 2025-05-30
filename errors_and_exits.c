@@ -56,6 +56,11 @@ bool	is_valid_input(int argc, char *argv[])
 		printf(DIGIT_CHECK);
 		return (false);
 	}
+	if (argv[1][0] == '0')
+	{
+		printf(NUM_OF_PHILOS);
+		return (false);
+	}
 	if (argc == 6 && check_is_digit(argv[5]) == false)
 	{
 		printf(DIGIT_CHECK);
