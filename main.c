@@ -6,12 +6,16 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:04 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/02 13:39:43 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/02 15:39:24 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+//the error messages, I guess I can't use printf
+//		table->start_time = get_time();
+//		table->philos[i].last_meal_time = table->start_time;
+//These ones MAYBE should be added here in the beginning of while loop
 t_clean_up	start_philosophers(t_table *table, t_clean_up clean_up)
 {
 	int	i;
@@ -20,8 +24,6 @@ t_clean_up	start_philosophers(t_table *table, t_clean_up clean_up)
 	i = 0;
 	while (i < table->num_philos)
 	{
-		table->start_time = get_time();
-		table->philos[i].last_meal_time = table->start_time;
 		if (pthread_create(&table->philos[i].thread_id, NULL,
 				philosopher_routine, &table->philos[i]) != 0)
 		{
@@ -37,10 +39,7 @@ t_clean_up	start_philosophers(t_table *table, t_clean_up clean_up)
 	else
 		pthread_join(table->watcher, NULL);
 	while (i < threads)
-	{
-		pthread_join(table->philos[i].thread_id, NULL);
-		i++;
-	}
+		pthread_join(table->philos[i++].thread_id, NULL);
 	return (clean_up);
 }
 

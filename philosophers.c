@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 13:36:23 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/02 13:38:46 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/02 15:46:33 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	sleepy_time(t_philo *philo, long int time, char *message)
 	total_time = time + get_time();
 	if (is_finished(philo->table) == false)
 		print_message(philo->table, message, philo->id);
+	else
+		return ;
 	while (get_time() < total_time)
 	{
 		if (is_finished(philo->table) == true)
@@ -81,7 +83,9 @@ void	*philosopher_routine(void *arg)
 	while (is_finished(philo->table) == false)
 	{
 		handle_forks(philo);
+		pthread_mutex_lock(&philo->table->meal_check_lock);
 		philo->last_meal_time = get_time();
+		pthread_mutex_unlock(&philo->table->meal_check_lock);
 		sleepy_time(philo, philo->table->time_to_eat, EAT);
 		if (is_finished(philo->table) == true)
 		{
@@ -93,12 +97,9 @@ void	*philosopher_routine(void *arg)
 			philo->times_ate++;
 		pthread_mutex_unlock(&philo->table->meal_check_lock);
 		release_forks(philo, 2);
-		if (is_finished(philo->table) == true)
-			break ;
-		if (is_finished(philo->table) == false)
-			sleepy_time(philo, philo->table->time_to_sleep, SLEEP);
-		if (is_finished(philo->table) == false)
-			sleepy_time(philo, philo->table->time_to_think, THINK);
+		sleepy_time(philo, philo->table->time_to_sleep, SLEEP);
+		sleepy_time(philo, philo->table->time_to_think, THINK);
 	}
 	return (NULL);
 }
+

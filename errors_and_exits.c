@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:37:58 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/02 13:29:36 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:55:55 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ bool	is_valid_input(int argc, char *argv[])
 		printf(NUM_OF_PHILOS);
 		return (false);
 	}
-	if (argc == 6 && check_is_digit(argv[5]) == false || ft_atoi(argv[5]) == -1)
+	if ((argc == 6 && check_is_digit(argv[5]) == false)
+		|| (argc == 6 && ft_atoi(argv[5]) == -1))
 	{
 		printf(DIGIT_CHECK);
 		return (false);
