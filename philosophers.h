@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:10 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/02 15:44:28 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:54:11 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <stdatomic.h>
 # define MEM_FAIL "Failed to allocate memory.\n"
 # define THREAD_FAIL "Failed to create a thread.\n"
 # define MUTEX_FAIL "Failed to create a mutex.\n"
@@ -52,19 +53,18 @@ typedef struct s_table {
 	long int		time_to_think;
 	int				must_eat_count;
 	long int		start_time;
-	int				finished;
+	atomic_bool		finished;
 	struct s_philo	*philos;
 	pthread_t		watcher;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	meal_check_lock;
-	pthread_mutex_t	finished_lock;
 	pthread_mutex_t	*forks;
 }	t_table;
 
 typedef struct s_philo {
 	int				id;
-	int				times_ate;
-	long int		last_meal_time;
+	atomic_int		times_ate;
+	atomic_long		last_meal_time;
 	pthread_t		thread_id;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -75,8 +75,6 @@ typedef struct s_clean_up {
 	bool				early_failure;
 	enum e_fail_stages	cause_of_failure;
 	bool				destroy_print;
-	bool				destroy_meal;
-	bool				destroy_finished;
 	bool				destroy_forks;
 	int					fork_amount;
 }	t_clean_up;

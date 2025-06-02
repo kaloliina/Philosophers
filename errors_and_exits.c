@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:37:58 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/02 14:55:55 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:35:30 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,12 @@ void	clean_ups(t_table *table, t_clean_up clean_up)
 	i = 0;
 	while (clean_up.destroy_forks == true && i < clean_up.fork_amount)
 	{
-		pthread_mutex_destroy(&table->forks[i]);
+		if (pthread_mutex_destroy(&table->forks[i]) != 0)
+			printf("%d failed\n", table->philos[i].id);
 		i++;
 	}
 	if (clean_up.destroy_print == true)
 		pthread_mutex_destroy(&table->print_lock);
-	if (clean_up.destroy_meal == true)
-		pthread_mutex_destroy(&table->meal_check_lock);
-	if (clean_up.destroy_finished == true)
-		pthread_mutex_destroy(&table->finished_lock);
 	if (table->forks != NULL)
 		free (table->forks);
 	if (table->philos != NULL)

@@ -6,13 +6,12 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:14 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/02 13:34:51 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:12:05 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-//check this one
 int	ft_atoi(const char *nptr)
 {
 	int		i;

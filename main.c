@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:04 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/02 15:39:24 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:07:08 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_clean_up	start_philosophers(t_table *table, t_clean_up clean_up)
 		if (pthread_create(&table->philos[i].thread_id, NULL,
 				philosopher_routine, &table->philos[i]) != 0)
 		{
-			clean_up = (t_clean_up){1, THREAD, 1, 1, 1, 1, table->num_philos};
+			clean_up = (t_clean_up){1, THREAD, 1, 1, table->num_philos};
 			break ;
 		}
 		i++;
@@ -35,7 +35,7 @@ t_clean_up	start_philosophers(t_table *table, t_clean_up clean_up)
 	threads = i;
 	i = 0;
 	if (pthread_create(&table->watcher, NULL, watcher_routine, table) != 0)
-		clean_up = (t_clean_up){1, THREAD, 1, 1, 1, 1, table->num_philos};
+		clean_up = (t_clean_up){1, THREAD, 1, 1, table->num_philos};
 	else
 		pthread_join(table->watcher, NULL);
 	while (i < threads)
