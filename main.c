@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:04 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/05/29 16:17:16 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:39:43 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_clean_up	start_philosophers(t_table *table, t_clean_up clean_up)
 	{
 		table->start_time = get_time();
 		table->philos[i].last_meal_time = table->start_time;
-		if (pthread_create(&table->philos[i].thread_id, NULL, philosopher_routine, &table->philos[i]) != 0)
+		if (pthread_create(&table->philos[i].thread_id, NULL,
+				philosopher_routine, &table->philos[i]) != 0)
 		{
 			clean_up = (t_clean_up){1, THREAD, 1, 1, 1, 1, table->num_philos};
 			break ;

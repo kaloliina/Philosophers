@@ -6,12 +6,18 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 13:35:35 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/05/29 16:07:41 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:30:08 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+//		if (i == table->num_philos - 1)
+//		{
+//			table->philos[i].left_fork = &table->forks[(i + 1)
+//				% table->num_philos];
+//			table->philos[i].right_fork = &table->forks[i];
+//		}
 static void	initialize_philosophers(t_table *table)
 {
 	int	i;
@@ -26,12 +32,6 @@ static void	initialize_philosophers(t_table *table)
 		table->philos[i].left_fork = &table->forks[i];
 		table->philos[i].right_fork = &table->forks[(i + 1)
 			% table->num_philos];
-//		if (i == table->num_philos - 1)
-//		{
-//			table->philos[i].left_fork = &table->forks[(i + 1)
-//				% table->num_philos];
-//			table->philos[i].right_fork = &table->forks[i];
-//		}
 		i++;
 	}
 }

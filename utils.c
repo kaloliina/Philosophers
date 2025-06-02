@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:14 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/05/29 16:17:47 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:34:51 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_atoi(const char *nptr)
 {
 	int		i;
 	int		check;
-	long	result;
+	int		result;
 
 	i = 0;
 	check = 1;
@@ -34,15 +34,13 @@ int	ft_atoi(const char *nptr)
 	{
 		result = result * 10 + (nptr[i] - '0');
 		i++;
-		if (check == 1 && result < 0)
-			return ((int)LONG_MAX);
-		if (check == -1 && result < 0)
-			return ((int)LONG_MIN);
+		if (result < 0)
+			return (-1);
 	}
 	return ((int)result * check);
 }
 
-long int get_time(void)
+long int	get_time(void)
 {
 	struct timeval	tv;
 
