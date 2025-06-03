@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 13:36:23 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/03 11:44:39 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:45:14 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	*philosopher_routine(void *arg)
 	if (philo->table->must_eat_count == 0)
 		return (NULL);
 	if (philo->id % 2 == 0)
-		sleepy_time(philo, philo->table->time_to_think, THINK);
+		sleepy_time(philo, philo->table->time_to_eat, THINK);
 	while (philo->table->finished == false)
 	{
 		fork_amount = handle_forks(philo);

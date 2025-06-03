@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:10 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/03 12:04:08 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:36:29 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define MUTEX_FAIL "Failed to create a mutex.\n"
 # define MUTEX_DESTROY_FAIL "Failed to destroy a mutex.\n"
 # define NUM_OF_PHILOS "There must be at least one philosopher sitting at the \
-table\n"
+table.\n"
 # define FORK "%d %d has taken a fork\n"
 # define EAT "%d %d is eating\n"
 # define SLEEP "%d %d is sleeping\n"
