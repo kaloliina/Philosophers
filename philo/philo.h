@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:38:10 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/03 14:36:29 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:15:00 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdatomic.h>
 # define MEM_FAIL "Failed to allocate memory.\n"
 # define THREAD_FAIL "Failed to create a thread.\n"
+# define THREAD_JOIN_FAIL "Failed to join a thread.\n"
 # define MUTEX_FAIL "Failed to create a mutex.\n"
 # define MUTEX_DESTROY_FAIL "Failed to destroy a mutex.\n"
 # define NUM_OF_PHILOS "There must be at least one philosopher sitting at the \
@@ -56,7 +57,6 @@ typedef struct s_table
 	long int		start_time;
 	atomic_bool		finished;
 	struct s_philo	*philos;
-	pthread_t		watcher;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	*forks;
 }	t_table;
@@ -87,8 +87,7 @@ bool		is_valid_input(int argc, char *argv[]);
 //Initialization
 t_clean_up	initialize(int argc, char *argv[], t_table *table);
 
-//Routines
-void		*watcher_routine(void *arg);
+//Routine
 void		*philosopher_routine(void *arg);
 
 //Utils

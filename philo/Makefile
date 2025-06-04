@@ -6,20 +6,18 @@
 #    By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 10:46:49 by khiidenh          #+#    #+#              #
-#    Updated: 2025/06/03 11:36:44 by khiidenh         ###   ########.fr        #
+#    Updated: 2025/06/04 14:14:06 by khiidenh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-INC_DIR = -I
 SRCS = errors_and_exits.c\
 		initialization.c\
 		main.c\
 		philosophers.c\
-		utils.c\
-		watcher.c
+		utils.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: khiidenh <khiidenh@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 13:35:35 by khiidenh          #+#    #+#             */
-/*   Updated: 2025/06/03 11:11:50 by khiidenh         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:08:52 by khiidenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_clean_up	initialize(int argc, char *argv[], t_table *table)
 
 	clean_up = (t_clean_up){0, 0, 0, 0, 0};
 	*table = (t_table){ft_atoi(argv[1]), ft_atoi(argv[2]), ft_atoi(argv[3]),
-		ft_atoi(argv[4]), 0, -1, get_time(), 0, 0, 0, {0}, 0};
+		ft_atoi(argv[4]), 0, -1, get_time(), 0, 0, {0}, 0};
 	table->time_to_think = (table->time_to_die
 			- (table->time_to_eat + table->time_to_sleep)) / 2;
 	if (table->time_to_think < 1)
